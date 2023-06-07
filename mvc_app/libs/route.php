@@ -53,13 +53,16 @@ function route($path, $httpMethod){
             case 'contact':
                 $controllerName = 'ContactController';
                 switch($case) {
+                    case ['index', 'get']:
+                        $methodName = 'index';
+                        break;
                     case ['create', 'post']:
                         $methodName = 'create';
                         break;
                 }
                 break;
             // お問合せ機能
-            
+
             default:
                 $controllerName = '';
                 $methodName = '';
