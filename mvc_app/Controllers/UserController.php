@@ -23,7 +23,6 @@ class UserController extends Controller
     $this->view('user/signup');
     }
 
-    // この部分を追加
     public function create(){
       $errorMessages = [];
 
@@ -63,16 +62,12 @@ class UserController extends Controller
           if(is_numeric($result)){
               session_start();
               $_SESSION['auth'] = $result;
-
-              // $this->view('user/create-complete');
               $this->view('user/create-complete', ['auth' => $result]);
-
           }else{
               $errorMessages['email'] = 'メールアドレスが既に使用されています。';
               $this->view('user/signup', ['post' => $_POST, 'errorMessages' => $errorMessages]);
           }
       }
-      // この部分を追加
     }
 
     /**

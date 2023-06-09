@@ -19,21 +19,22 @@ class Contact extends Db
      * @param string $email メールアドレス
      * @param string $body お問合せ内容
      */
-    public function createContact(string $name, string $kana, string $tel, string $email, string $body)
+    public function completeContact(string $name, string $kana, string $tel, string $email, string $body)
     {
         try{
             // データベースのトランザクションを開始。トランザクション中にエラーが発生した場合、変更がロールバックされて元の状態に戻る。
-            $this->dbh->beginTransaction();
+            // $this->dbh->beginTransaction();
             // contactsテーブルに下記情報を挿入するためのクエリを準備
             $query = 'INSERT INTO contacts (name, kana, tel, email, body) VALUES (:name, :kana, :tel, :email, :body)';
             // ユーザーから直接入力された情報をクエリに挿入してしまうとSQLインジェクションを受ける可能性がある為、prepare関数を使用し、後からクエリに値（変数）を当てはめる。
             $stmt = $this->dbh->prepare($query);
-            // bindParam関数で
+            // bindParam関数でプレースホルダに入力した値をバインドする。
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
             $stmt->bindParam(':kana', $kana, PDO::PARAM_STR);
             $stmt->bindParam(':tel', $tel, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->bindParam(':body', $body, PDO::PARAM_STR);
+            // クエリを実行
             $stmt->execute();
 
             // lastInsertId()メソッド:（contactsテーブルの）最後に挿入された行のIDを取得。

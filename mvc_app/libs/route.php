@@ -1,6 +1,8 @@
 <?php
 function route($path, $httpMethod){
     try {
+        //$pathをスラッシュ(/)で分割し、$controllerと$method名を取得。
+        // 例）/home/indexというパスの場合、$controllerにはhome、$methodにはindexが代入されます。
         list($controller, $method) = explode('/', $path);
         $case = [$method, $httpMethod];
         switch ($controller) {
@@ -46,6 +48,9 @@ function route($path, $httpMethod){
                     case ['delete', 'get']:
                         $methodName = 'delete';
                         break;
+                    default:
+                        $controllerName = '';
+                        $methodName = '';
                 }
                 break;
 
@@ -56,9 +61,15 @@ function route($path, $httpMethod){
                     case ['index', 'get']:
                         $methodName = 'index';
                         break;
-                    case ['create', 'post']:
-                        $methodName = 'create';
+                    case ['confirm', 'post']:
+                        $methodName = 'confirm';
                         break;
+                    case ['complete', 'post']:
+                        $methodName = 'complete';
+                        break;
+                    default:
+                        $controllerName = '';
+                        $methodName = '';
                 }
                 break;
             // お問合せ機能
@@ -67,6 +78,7 @@ function route($path, $httpMethod){
                 $controllerName = '';
                 $methodName = '';
         }
+
         require_once (ROOT_PATH."Controllers/{$controllerName}.php");
 
         $obj = new $controllerName();
