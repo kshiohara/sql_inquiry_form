@@ -3,14 +3,6 @@ class Controller
 {
     public function view(string $template, array $params = []): void
     {
-        // 追加部分
-        // if ($template === 'contact/complete') {
-        //     // リダイレクト処理
-        //     header('Location: /contact/complete.php');
-        //     exit();
-        // }
-        // 追加部分
-
         $Smarty = new Smarty();
         $Smarty->setTemplateDir(ROOT_PATH.'Views');
         $Smarty->setCompileDir(ROOT_PATH.'Views/compile');

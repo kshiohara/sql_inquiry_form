@@ -62,10 +62,23 @@ function route($path, $httpMethod){
                         $methodName = 'index';
                         break;
                     case ['confirm', 'post']:
+                    case ['confirm', 'get']:
                         $methodName = 'confirm';
                         break;
                     case ['complete', 'post']:
+                    case ['complete', 'get']:
                         $methodName = 'complete';
+                        break;
+                    case ['edit', 'post']:
+                    case ['edit', 'get']:
+                        $methodName = 'edit';
+                        break;
+                    case ['update', 'post']:
+                        $methodName = 'update';
+                        break;
+                    case ['delete', 'post']:
+                    case ['delete', 'get']:
+                        $methodName = 'delete';
                         break;
                     default:
                         $controllerName = '';

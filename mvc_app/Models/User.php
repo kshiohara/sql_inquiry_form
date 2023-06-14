@@ -42,7 +42,6 @@ class User extends Db
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
             $stmt->bindParam(':kana', $kana, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-            // $stmt->bindParam(':password', password_hash($password, PASSWORD_BCRYPT), PDO::PARAM_STR);
             $stmt->bindParam(':password', $password, PDO::PARAM_STR);
             $stmt->execute();
 
@@ -71,16 +70,11 @@ class User extends Db
     public function certification(string $email, string $password){
         try{
             // $変数を使用する場合SQLインジェクションを受ける場合がある為、：（プレースホルダを用いる）
-            // $query = 'SELECT id FROM users WHERE email = :email AND password = :password';
             $query = 'SELECT id, password FROM users WHERE email = :email';
             $stmt = $this->dbh->prepare($query);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-            // $stmt->bindParam(':password', password_hash($password, PASSWORD_BCRYPT), PDO::PARAM_STR);
-            // $password = password_hash($password, PASSWORD_BCRYPT);
-            // $stmt->bindParam(':password', $password, PDO::PARAM_STR);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            // var_dump($result);
 
             if (is_array($result) && count($result) === 1) {
                 $result_password = $result[0]['password'];
